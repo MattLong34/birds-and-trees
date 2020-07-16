@@ -10,14 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_192128) do
+ActiveRecord::Schema.define(version: 2020_07_15_203055) do
 
   create_table "birds", force: :cascade do |t|
     t.string "species"
     t.integer "age"
     t.string "color"
+    t.integer "tree_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tree_id"], name: "index_birds_on_tree_id"
+  end
+
+  create_table "trees", force: :cascade do |t|
+    t.string "species"
+    t.integer "age"
+    t.integer "height"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "birds", "trees"
 end

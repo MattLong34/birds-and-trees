@@ -1,23 +1,26 @@
 class BirdsController < ApplicationController
 
     # calling the bird class/model
-    # read
+    # R in CRUD
     def index
         @birds = Bird.all
 
-        render json: @birds
+        # added [:tree] when we made the 1 to M relationship
+        render json: @birds, include: [:tree]
     end
 
-    # read
+    # R in CRUD
     def show
         @bird = Bird.find(params[:id])
 
-        render json: @bird
+        # added [:tree] when we made the 1 to M relationship
+        render json: @bird, include: [:tree]
     end
 
     # C in CRUD
     def create
-        @bird = Bird.create(species: params[:species], age: params[:age], color: params[:color])
+        # added [:tree_id] when we made the 1 to M relationship
+        @bird = Bird.create(species: params[:species], age: params[:age], color: params[:color], tree_id: params[:tree_id])
 
         render json: @bird
     end
